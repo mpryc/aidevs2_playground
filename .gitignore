@@ -1,0 +1,37 @@
+# Python-specific files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+*.env
+
+# Package distribution
+/dist/
+/build/
+*.egg-info/
+
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Cache for AIDevs
+.aidevsenv.json
