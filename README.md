@@ -23,6 +23,9 @@ Couple of examples:
 
 ```shell
 
+# Export your API_KEY:
+$ export AIDEVS_API_KEY=<your API Key>
+
 # Get the task details
 $ python main.py -q <task_name>
  # Example
