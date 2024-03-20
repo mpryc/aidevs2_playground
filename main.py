@@ -18,9 +18,11 @@ def main():
 
     task_name = None
     answer = None
+    task_details_response = None
 
     parser = argparse.ArgumentParser(description="Send HTTP request and display response.")
     parser.add_argument("-q", "--question", action="store", dest="question", help="Task Name")
+    parser.add_argument("-l", "--local", action="store_true", dest="local", help="Task is not in remote API, use local solution file")
     parser.add_argument("-s", "--sent-answer", action="store_true", dest="sentanswer", help="Sent answer based on provided solution in python")
     parser.add_argument("-a", "--answer", action="store", dest="answer", help="Answer to a previous task")
     parser.add_argument("-x", "--hint", action="store_true", dest="hint", help="Include hints")
@@ -48,7 +50,7 @@ def main():
         logger.error("Hint should be used together with question")
         return None
 
-    if task_name:
+    if task_name and not args.local:
         register_task_token(task_name)
         task_details_response = get_task_details()
         if not task_details_response:
@@ -85,10 +87,24 @@ def main():
             logger.error("Can not answer, not known task name")
             return None
 
-    if answer:
+    # Do not sent local answer
+    if answer and not args.local:
         logger.info(f"Answer SUBMITTED: {answer}")
         response_from_answer = send_answer(answer)
         logger.info(f"Response: {response_from_answer}")
+
+    # Get local task solution
+    if args.local:
+        task_module = load_task_module(task_name)
+        if task_module is not None:
+            answer = task_module.get_answer(task_details_response)
+            if not answer:
+                logger.error("Did not get answer !!!")
+            else:
+                logger.info(f"Answer: {answer}")
+        else:
+            logger.error("Could not find file for the task with proper answer function")
+
 
 if __name__ == "__main__":
     main()

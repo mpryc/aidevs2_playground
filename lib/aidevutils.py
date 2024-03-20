@@ -7,7 +7,6 @@ from lib.curlutils import send_request, HTTPMethod
 from lib.variables import set_aidevsenvironment_variable, get_aidevsenvironment_variable, \
                           get_environment_variable, AIDEVS_AUTH_TOKEN, AIDEVS_TASK_NAME, AIDEVS_API_KEY
 
-
 logger = logging.getLogger(__name__)
 
 AIDEVS_PREFIX = 'https://tasks.aidevs.pl/'

@@ -8,6 +8,7 @@ __pycache__/
 venv/
 env/
 *.env
+.venv/
 
 # Package distribution
 /dist/

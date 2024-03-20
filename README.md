@@ -23,13 +23,25 @@ Couple of examples:
 
 ```shell
 
+# Create and activate .venv && install deps
+$ python -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
+
 # Export your API_KEY:
 $ export AIDEVS_API_KEY=<your API Key>
+
+# For tasks that require OpenAI API Key:
+$ export AIDEVS_OPENAI_API_KEY=<your OpenAI API Key>
 
 # Get the task details
 $ python main.py -q <task_name>
  # Example
  $ python main.py -q helloapi
+
+# If the task doesn't have endpoint API it also has the option
+# to be resolved by talking to OpenAI endpoint, use local flag, example:
+$ python main.py -q lesson_3_task_2 -l
 
 # Use solutions/<task_name>.py to sent an answer
 $ python main.py -q <task_name> -s
