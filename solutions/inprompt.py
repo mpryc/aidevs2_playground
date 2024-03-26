@@ -34,7 +34,6 @@ _CHAT_MSGS_2_USER = {
     }
 
 
-
 def get_answer(task_details_response: dict):
     client = openai_get_authenticated_client()
     logger.info("Solving lesson 7 task 1")
@@ -47,9 +46,9 @@ def get_answer(task_details_response: dict):
 
     _CHAT_MSGS_1.append(user_json_data)
 
-
     models = get_openai_models()
  
+    # get name from question
     task_response = client.chat.completions.create(
         model=models.gpt_3_5_turbo.name,
         messages=_CHAT_MSGS_1,
@@ -60,25 +59,18 @@ def get_answer(task_details_response: dict):
 
     logger.debug(f"OpenAI Response { task_response }")
 
-    print(task_response.choices[0].message.content)
-
     name = task_response.choices[0].message.content
 
+    # filer sentences with name which we got
     filtered_sentences = [sentence for sentence in task_details_response['input'] if name in sentence]
 
-    print(filtered_sentences)
-
+    # build promt with filtered context
     _CHAT_MSGS_2_SYSTEM['content'] = _CHAT_MSGS_2_SYSTEM['content'].replace('KNOWLEDGE', str(filtered_sentences))
     _CHAT_MSGS_2_USER['content'] = _CHAT_MSGS_2_USER['content'].replace('QUESTION', str(task_details_response['question']))
-
-    print(_CHAT_MSGS_2_SYSTEM)
-    print(_CHAT_MSGS_2_USER)
-
     _CHAT_MSGS_2.append(_CHAT_MSGS_2_SYSTEM)
     _CHAT_MSGS_2.append(_CHAT_MSGS_2_USER)
 
-    print(_CHAT_MSGS_2)
-
+    # Ask for response for original question
     task_response = client.chat.completions.create(
         model=models.gpt_3_5_turbo.name,
         messages=_CHAT_MSGS_2,
@@ -88,7 +80,5 @@ def get_answer(task_details_response: dict):
     )
 
     logger.debug(f"OpenAI Response { task_response }")
-
-    print(task_response.choices[0].message.content)
 
     return task_response.choices[0].message.content
