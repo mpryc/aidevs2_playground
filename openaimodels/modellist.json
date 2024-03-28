@@ -111,7 +111,15 @@
         "context_window": "16,385 tokens",
         "training_data": "Up to Sep 2021",
         "category": "GPT-3.5 Turbo"
+      },
+      {
+        "name": "whisper-1",
+        "description": "Whisper is a general-purpose speech recognition model. It is trained on a large dataset of diverse audio and is also a multi-task model that can perform multilingual speech recognition as well as speech translation and language identification.",
+        "context_window": "n/a",
+        "training_data": "large dataset of diverse audio",
+        "category": "Whisper"
       }
+
     ]
   }
   

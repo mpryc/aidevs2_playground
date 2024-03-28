@@ -1,5 +1,6 @@
 import requests
 import logging
+import tempfile
 from typing import Optional, Dict, Any
 
 logger = logging.getLogger(__name__)
@@ -8,6 +9,30 @@ logger = logging.getLogger(__name__)
 class HTTPMethod:
     GET = 'GET'
     POST = 'POST'
+
+
+def download_file_to_temp(url: str) -> Optional[str]:
+    """
+    Downloads a file from the given URL and saves it to a temporary file.
+
+    Args:
+        url (str): The URL of the file to download.
+
+    Returns:
+        str or None: The path of the temporary file where the downloaded content is stored,
+        or None if the download fails.
+    """
+    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+    response = requests.get(url, stream=True)
+
+    if response.status_code == 200:
+        for chunk in response.iter_content(chunk_size=128):
+            temp_file.write(chunk)
+        temp_file.close()
+        return temp_file.name
+    else:
+        logger.error(f"Failed to download file to temporary file. Status code: {response.status_code}")
+        return None
 
 
 def send_request(url: str, method: HTTPMethod = HTTPMethod.GET, data: Optional[Dict[str, Any]] = None,
