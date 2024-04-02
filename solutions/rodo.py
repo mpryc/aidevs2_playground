@@ -1,6 +1,5 @@
 import logging
 from typing import List, Dict
-from lib.variables import get_environment_variable
 from lib.openaiutils import openai_get_authenticated_client, get_openai_models
 
 
