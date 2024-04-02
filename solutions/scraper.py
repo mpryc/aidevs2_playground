@@ -36,7 +36,6 @@ def get_answer(task_details_response: dict):
     question_text = task_details_response['question']
     msg_text = task_details_response['msg']
 
-    # Use WebBaseLoader from Langchang but to resolve this task we will use simpla openai call
     loader = WebBaseLoader(input_text_url, header_template={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',})
     loaded_docs = _load_documents_with_retry(loader, 3, "server error")
     if loaded_docs is None:
