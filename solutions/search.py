@@ -67,6 +67,13 @@ def _get_qdrant_client(host: str, port: int) -> Optional[QdrantClient]:
         return qdrant_client
     except ResponseHandlingException:
         logger.error(f"Can't connect to Qdrant: { host }:{port}")
+        logger.info("""
+                    
+                    Are you sure you are running Qdrant locally?\n
+                    You may use ./scripts/run_quadrant.sh to start it
+                    on the system with docker or podman and bash
+                    
+                    """)
         return None
     except UnexpectedResponse:
         logger.debug(f"We've connected to Qdrant: { host }:{port}")
