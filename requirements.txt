@@ -4,4 +4,10 @@ requests
 # LangChain related deps
 langchain
 langchain-openai
-beautifulsoup4 # Required as per https://python.langchain.com/docs/get_started/quickstart#retrieval-chain
+beautifulsoup4 # Required by WebBaseLoader as per https://python.langchain.com/docs/get_started/quickstart#retrieval-chain
+
+# Chromadb vectorstore https://python.langchain.com/docs/modules/data_connection/vectorstores/
+# chromadb
+
+# Qdrant vector db client
+qdrant-client

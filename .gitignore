@@ -36,3 +36,5 @@ Thumbs.db
 
 # Cache for AIDevs
 .aidevsenv.json
+
+scripts/qdrant/
